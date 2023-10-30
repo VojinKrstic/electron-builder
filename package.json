@@ -1,0 +1,38 @@
+{
+  "name": "next-electron-builder",
+  "version": "0.1.0",
+  "private": true,
+  "author": "vojin",
+  "main": "public/main.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "electron-dev": "electron .",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "electron-is-dev": "^2.0.0",
+    "next": "14.0.0",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "electron": "^27.0.2",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.vojin.app",
+    "productName": "Electron Test App",
+    "target": "NSIS",
+    "directories": {
+      "output": "build"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
+    }
+  }
+}
