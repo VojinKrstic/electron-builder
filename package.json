@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "author": "vojin",
-  "main": "public/main.js",
+  "main": "main.js",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3003",
     "lint": "next lint",
     "electron-dev": "electron .",
     "dist": "electron-builder"
