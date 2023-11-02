@@ -5,7 +5,7 @@ import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home({test}) {
   return (
     <>
       <Head>
@@ -17,7 +17,7 @@ export default function Home() {
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
           <p>
-            Get started by editing&nbsp;
+            SSR: {test}
             <code className={styles.code}>pages/index.js</code>
           </p>
           <div>
@@ -112,3 +112,11 @@ export default function Home() {
     </>
   )
 }
+
+export const getStaticProps = () => {
+  return {
+    props: {
+      test: 'Tessttt!!!',
+    }
+  }
+};
