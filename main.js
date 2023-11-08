@@ -1,16 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 const { spawn } = require("node:child_process");
 const path = require("node:path");
-import Store from "electron-store";
-const store = new Store();
-
-// IPC listener
-ipcMain.on("electron-store-get", async (event, val) => {
-  event.returnValue = store.get(val);
-});
-ipcMain.on("electron-store-set", async (event, key, val) => {
-  store.set(key, val);
-});
 
 let nextServerProcess;
 
@@ -19,7 +9,8 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      sandbox: false,
+      preload: path.join(__dirname, "./preload.js"),
     },
   });
 
