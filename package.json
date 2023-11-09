@@ -37,6 +37,9 @@
     "nsis": {
       "allowToChangeInstallationDirectory": true,
       "oneClick": false
-    }
+    },
+    "extraResources": [
+      "../mytest.db"
+    ]
   }
 }
