@@ -9,7 +9,7 @@ const Component = () => {
   async function fromAPI() {
     const response = await fetch("https://catfact.ninja/fact");
     const fact = await response.json();
-    setNames((prev) => [...prev, fact]);
+    setNames([fact]);
   }
 
   useEffect(() => {
@@ -25,8 +25,8 @@ const Component = () => {
 
   return (
     <div>
-      {names.map((name) => {
-        return <p>{status === true ? name.fact : name.name}</p>;
+      {names.map((name, id) => {
+        return <p key={id}>{status === true ? name.fact : name.name}</p>;
       })}
     </div>
   );
