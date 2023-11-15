@@ -3,10 +3,21 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Component from "./component";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({ test }) {
+export default function Home({ fact }) {
+  const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    setIsOnline(window.navigator.onLine);
+  }, []);
+
+  const [text, setText] = useState();
+  useEffect(() => {
+    setText(isOnline ? fact.fact : "TESTTTT");
+  }, [isOnline]);
   return (
     <>
       <Head>
@@ -18,7 +29,7 @@ export default function Home({ test }) {
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
           <p>
-            SSR: {test}
+            SSR: {text}
             <code className={styles.code}>pages/index.js</code>
           </p>
           <div>
@@ -53,31 +64,22 @@ export default function Home({ test }) {
         </div>
 
         <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="/first" className={styles.card}>
             <h2>
-              Docs <span>-&gt;</span>
+              First page <span>-&gt;</span>
             </h2>
             <p>
-              Find in-depth information about Next.js features and&nbsp;API.
+              Find in-depth information about First page features and&nbsp;API.
             </p>
           </a>
 
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="/second" className={styles.card}>
             <h2>
-              Learn <span>-&gt;</span>
+              Second page <span>-&gt;</span>
             </h2>
             <p>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
+              Learn about Second page in an interactive course
+              with&nbsp;quizzes!
             </p>
           </a>
 
@@ -115,10 +117,23 @@ export default function Home({ test }) {
   );
 }
 
-export const getStaticProps = () => {
-  return {
-    props: {
-      test: "Tessttt!!!",
-    },
-  };
+export const getServerSideProps = async () => {
+  try {
+    const res = await fetch("https://catfact.ninja/fact");
+    const fact = await res.json();
+    return {
+      props: {
+        fact,
+      },
+    };
+  } catch (error) {
+    const fact = {
+      fact: "Error",
+    };
+    return {
+      props: {
+        fact,
+      },
+    };
+  }
 };
